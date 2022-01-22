@@ -1,6 +1,6 @@
-# Study Partner
+# Study Buddy
 
-**Study Partner** is a web application that consists of activities designed to help students absorb information on computer science.
+**Study Buddy** is a web application that consists of activities designed to help students absorb information on computer science.
 
 ## Features
 
