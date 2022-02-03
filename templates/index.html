@@ -2,13 +2,15 @@
 {% block title %}Welcome{% endblock %}
 {% block content %}
 <h2>Hello, buddy!</h2>
-<p>Sign in to sharpen your skills:</p>
-<form action="/login" method="POST">
+<p>Log in to sharpen your skills:</p>
+<form action="/index" method="POST">
   <label for="username">Username:</label>
   <input type="text" name="username">
+  <br>
   <label for="password">Password:</label>
   <input type="password" name="password">
+  <br>
   <input id=button type="submit" value="Log in">
 </form>
-<p>To create a new account, click <a href="register.html">here</a>.</p>
+<p>To create a new account, click <a href="/register">here</a>.</p>
 {% endblock %}
