@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}Welcome{% endblock %}
+{% block content %}
+<h2>Hello, buddy!</h2>
+<p>Sign in to sharpen your skills:</p>
+<form action="/login" method="POST">
+  <label for="username">Username:</label>
+  <input type="text" name="username">
+  <label for="password">Password:</label>
+  <input type="password" name="password">
+  <input id=button type="submit" value="Log in">
+</form>
+<p>To create a new account, click <a href="register.html">here</a>.</p>
+{% endblock %}
