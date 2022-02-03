@@ -22,18 +22,19 @@ def login(username, password):
     return True
 
 
-def register(name, password, role):
+def register(username, password, role):
     hash_value = generate_password_hash(password)
 
     try:
-        sql = """INSERT INTO users (name, password, role)
-                 VALUES (:name, :password, :role)"""
-        db.session.execute(sql, {"name":name, "password":hash_value, "role":role})
+        sql = """INSERT INTO users (username, password, role)
+                 VALUES (:username, :password, :role)"""
+        db.session.execute(sql, {"username":username, "password":hash_value, "role":role})
         db.session.commit()
     except:
         return False
 
-    return login(name, password)
+    return login(username, password)
+
 
 
 def logout():
@@ -42,9 +43,19 @@ def logout():
     del session["user_role"]
 
 
+def unique_username(username):
+    sql = "SELECT username FROM users"
+    result = db.session.execute(sql)
+    users = result.fetchall()
+
+    return username not in users
+
+
 def user_id():
     return session.get("user_id", -1)
+
 
 def check_csrf():
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
+

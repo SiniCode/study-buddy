@@ -26,7 +26,7 @@ def register():
         username = request.form["username"]
         if len(username) < 1 or len(username) > 20:
             return render_template("error.html", message="Make sure the username has 1 to 20 characters.")
-        if not users.unique_username():
+        if not users.unique_username(username):
             return render_template("error.html", message="This username is already taken. Please, choose another username.")
 
         password = request.form["password"]
