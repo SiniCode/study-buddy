@@ -5,11 +5,38 @@ CREATE TABLE users (
     role TEXT
 );
 
-CREATE TABLE messages (
+CREATE TABLE questions (
     id SERIAL PRIMARY KEY,
-    sender_id INTEGER REFERENCES users,
+    user_id INTEGER REFERENCES users,
     sent_at TIMESTAMP,
-    answer_to INTEGER REFERENCES messages,
+    content TEXT
+);
+
+CREATE TABLE answers (
+    id SERIAL PRIMARY KEY,
+    answer_to INTEGER REFERENCES questions,
+    user_id INTEGER REFERENCES users,
+    sent_at TIMESTAMP,
     content TEXT,
     likes INTEGER
+);
+
+CREATE TABLE quizzes (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    visible INTEGER
+);
+
+CREATE TABLE exercises (
+    id SERIAL PRIMARY KEY,
+    quiz_id INTEGER REFERENCES quizzes,
+    task TEXT,
+    solution TEXT
+);
+
+CREATE TABLE attempts (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users,
+    quiz_id INTEGER REFERENCES quizzes,
+    score INTEGER
 );
