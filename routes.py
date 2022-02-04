@@ -44,3 +44,11 @@ def home():
 def logout():
     users.logout()
     return redirect("/")
+
+@app.route("/chat")
+def chat():
+    return render_template("chat.html")
+
+@app.route("/statistics")
+def statistics():
+    return render_template("statistics.html")
