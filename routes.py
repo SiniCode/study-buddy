@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, session
 import users
 
 
-@app.route("/", methods=["get", "post"])
+@app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
         return render_template("index.html")
@@ -17,7 +17,7 @@ def index():
 
         return redirect("/home")
 
-@app.route("/register", methods=["get", "post"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
         return render_template("register.html")
@@ -32,7 +32,7 @@ def register():
             return render_template("error.html", message="Make sure the password has 3 to 20 characters.")
 
         if not users.register(username, password, "buddy"):
-            return render_template("error.html", message="Something went wrong. This username might already be taken. Please, try choosing another username.")
+            return render_template("error.html", message="This username might already be taken. Please, try choosing another username.")
 
         return redirect("/home")
 
