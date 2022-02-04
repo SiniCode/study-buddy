@@ -43,14 +43,6 @@ def logout():
     del session["user_role"]
 
 
-def unique_username(username):
-    sql = "SELECT username FROM users"
-    result = db.session.execute(sql)
-    users = result.fetchall()
-
-    return username not in users
-
-
 def user_id():
     return session.get("user_id", -1)
 
