@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}Check{% endblock %}
+{% block content %}
+
+{% if answer == correct %}
+<h2>Well done, buddy!</h2>
+{% else %}
+<h2>Not quite, buddy...</h2>
+<p>Your solution: {{ answer }}<br>Correct solution: {{ correct }}</p>
+{% endif %}
+
+<hr>
+<p>
+  <a href="/play/{{ quiz_id }}">Next task</a>
+  <a href="/home">Quit</a>
+</p>
+{% endblock %}
