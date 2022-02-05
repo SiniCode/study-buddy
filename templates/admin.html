@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}Administration{% endblock %}
+{% block content %}
+{% if session.user_role == "admin" %}
+<h2>App statistics</h2>
+<h3>Total amount of users: {{ user_count }}</h3>
+<p><a href="/delete">Delete user account</a></p>
+<hr>
+<h3>Quizzes and the number of attempts:</h3>
+<ul>
+  {% for quiz in quizzes %}
+  <li>{{ quiz[1] }}: {{ quiz[2] }}
+  {% endfor %}
+</ul>
+<p><a href="/delete">Delete quiz</a></p>
+<hr>
+<h3>Buddy Chat</h3>
+<p>Coming soon: statistics on chat messages...<br>
+  <a href="/delete">Delete message</a>
+</p>
+<hr>
+<p><a href="/home">Back</a></p>
+{% endblock %}
