@@ -24,6 +24,7 @@ CREATE TABLE answers (
 CREATE TABLE quizzes (
     id SERIAL PRIMARY KEY,
     name TEXT,
+    description TEXT,
     visible INTEGER
 );
 
