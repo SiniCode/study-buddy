@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}Quiz{% endblock %}
+{% block content %}
+<h2>{{ name }}</h2>
+<p>Description: {{ description }}</p>
+
+{% if session.user_id %}
+<p><a href="/play/{{ id }}">Play</a></p>
+{% endif %}
+
+<p><a href="/home">Back</a></p>
+{% endblock %}
