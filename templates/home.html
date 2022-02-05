@@ -3,11 +3,24 @@
 {% block content %}
 <h2>Hey, buddy, choose your next activity!</h2>
 <p>Rehearse your skills:
+  <ul>
+    {% for quiz in quizzes %}
+    <li><a href="/quiz/{{ quiz.id }}">{{ quiz.name }}</a>
+    {% endfor %}
+  </ul>
+
+  <a href="/chat">Chat with other buddies</a>
   <br>
-   <a href="/chat">Chat</a> with other buddies
+  <a href="/statistics">Check your progress</a>
   <br>
-   <a href="/statistics">Check</a> your progress
-  <br>
-   <a href="/logout">Log out</a>
+  <a href="/logout">Log out</a>
+
+  {% if session.user_role == "admin" %}
+  <hr>
+  <ul>
+    <li><a href="/create">Create a new quiz</a>
+    <li><a href="/admin">Check app statistics</a>
+  </ul>
+  {% endif %}  
 </p>
 {% endblock %}
