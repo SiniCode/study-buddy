@@ -1,0 +1,42 @@
+body {
+    margin: auto;
+    max-width: 45em;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    color: SlateGray;
+}
+
+.header {
+    background: CadetBlue;
+    color: MintCream;
+    font-weight: bold;
+    padding: 2em 1em;
+    font-size: 2em;
+}
+
+.content {
+    background: LightSalmon;
+    padding: 1.5em 2em;
+}
+
+
+form label, input {
+    margin-bottom: 3px;
+}
+
+form #button {
+    margin-top: 10px;
+}
+
+a:link {
+    font-weight: bold;
+    color: SlateGray;
+}
+
+a:visited {
+    font-weight: bold;
+    color: SlateGray;
+}
+
+a:hover {
+    color: MidnightBlue;
+}

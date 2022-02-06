@@ -1,11 +1,18 @@
 <!doctype html>
 <html>
   <head>
+    <link rel="stylesheet" href="/static/style.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Study Buddy - {% block title %}{% endblock %}</title>
   </head>
-  <h1>Study Buddy</h1>
-  <hr>
-  {% block content %}{% endblock %}
+  <body>
+    <div class="header">
+      <h1>Study Buddy</h1>
+    </div>
+    <hr>
+    <div class="content">
+      {% block content %}{% endblock %}
+    </div>
+  </body>
 </html>
