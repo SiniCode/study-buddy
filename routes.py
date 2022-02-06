@@ -1,7 +1,8 @@
 from app import app
 from flask import render_template, request, redirect, session
 import users
-
+import quizzes
+import statistics
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -38,7 +39,7 @@ def register():
 
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    return render_template("home.html", quizzes=quizzes.get_quizzes())
 
 @app.route("/logout")
 def logout():
