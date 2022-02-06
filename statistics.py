@@ -9,7 +9,7 @@ def get_user_stats(user_id):
         sql = """SELECT COALESCE(SUM(score),0), COUNT(*)
                  FROM attempts a
                  WHERE quiz_id=:quiz_id AND user_id=:user_id"""
-        score = db.session.execute(sql, {"quiz_id":quiz[0], "user_id":user_id).fetchone()
+        score = db.session.execute(sql, {"quiz_id":quiz[0], "user_id":user_id}).fetchone()
         result = f"{quiz[1]}: {score[0]} / {score[1]} points"
         data.append(result)
 
