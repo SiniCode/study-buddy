@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, request, redirect, session
 import users
 import quizzes
+from chat import get_questions, get_answers_by_question, send_question, send_answer, delete_question, delete_answer
 import statistics
 
 @app.route("/", methods=["GET", "POST"])
@@ -46,9 +47,24 @@ def logout():
     users.logout()
     return redirect("/")
 
-@app.route("/chat")
+@app.route("/chat", methods=["GET", "POST"])
 def chat():
-    return render_template("chat.html")
+    question_list = get_questions()
+
+    if request.method == "GET":
+        return render_template("chat.html", questions=question_list, error_message="")
+
+    if request.method == "POST":
+        content = request.form["content"].strip()
+        if content == "":
+            return render_template("chat.html", questions=question_list, error_message="You must type the question before sending it.")
+        elif len(content) > 1000:
+            return render_template("chat.html", questions=question_list, error_message="The question can have 1000 characters at maximum.")
+
+        if send_question(content):
+            return redirect("/chat")
+        else:
+            return render_template("chat.html", questions=question_list, error_message="Oops, something went wrong. Please, try again!")
 
 @app.route("/statistics")
 def statistics():

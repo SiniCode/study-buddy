@@ -3,7 +3,7 @@ import users
 
 def get_questions():
     sql = """SELECT Q.id, U.id, U.username, Q.sent_at, Q.content
-             FROM users U, questions M
+             FROM users U, questions Q
              WHERE Q.user_id=U.id AND Q.visible=1
              ORDER BY Q.id"""
     questions = db.session.execute(sql)
