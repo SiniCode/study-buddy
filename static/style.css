@@ -2,7 +2,7 @@ body {
     margin: auto;
     max-width: 45em;
     font-family: 'Helvetica', 'Arial', sans-serif;
-    color: SlateGray;
+    color: #454559;
 }
 
 .header {
@@ -29,14 +29,14 @@ form #button {
 
 a:link {
     font-weight: bold;
-    color: SlateGray;
+    color: #454559;
 }
 
 a:visited {
     font-weight: bold;
-    color: SlateGray;
+    color: #454559;
 }
 
 a:hover {
-    color: MidnightBlue;
+    color: #26252E;
 }
