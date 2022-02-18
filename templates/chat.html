@@ -2,6 +2,27 @@
 {% block title %}Chat{% endblock %}
 {% block content %}
 <h2>Buddy Chat</h2>
-<p>The messages should be seen here...</p>
+{% if session.user_id %}
+<form action="/ask" method="post">
+Send a question to your buddies:
+<br>
+<textarea name="content" rows="4" cols="40"></textarea>
+<br>
+<input type="submit" value="Send">
+</form>
+{% endif %}
+<hr>
+{% for question in questions %}
+<h3>{{ question[2] }}</h3>
+<p>
+<i>Sent at:</i> {{ question[3].strftime("%d/%m/%Y %H:%M:%S") }}
+<br>
+{{ question[4] }}
+</p>
+<a href="/question/{{ question[0] }}">Show answers</a>
+{% if session.user_id == question[1] %}
+<a href="/delete/{{ question[0] }}"">Delete question</a>  
+<hr>
+{% endfor %}
 <a href="/home">Back</a>
 {% endblock %}

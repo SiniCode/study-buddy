@@ -2,7 +2,7 @@ from db import db
 import users
 
 def get_questions():
-    sql = """SELECT Q.id, U.username, Q.sent_at, Q.content
+    sql = """SELECT Q.id, U.id, U.username, Q.sent_at, Q.content
              FROM users U, questions M
              WHERE Q.user_id=U.id AND Q.visible=1
              ORDER BY Q.id"""
@@ -10,7 +10,7 @@ def get_questions():
     return questions.fetchall()
 
 def get_answers_by_question(question_id):
-    sql = """SELECT U.username, A.sent_at, A.content
+    sql = """SELECT A.id, U.id, U.username, A.sent_at, A.content
              FROM users U, Answers A
              WHERE A.user_id=U.id AND A.question_id=:question_id AND A.visible=1
              ORDER BY A.id"""
