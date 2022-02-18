@@ -9,12 +9,19 @@ def get_questions():
     questions = db.session.execute(sql)
     return questions.fetchall()
 
+def get_question_by_id(question_id):
+    sql = """SELECT Q.id, U.username, Q.sent_at, Q.content
+             FROM users U, Questions Q
+             WHERE Q.user_id=U.id AND Q.visible=1"""
+    question = db.session.execute(sql)
+    return question.fetchone()
+
 def get_answers_by_question(question_id):
     sql = """SELECT A.id, U.id, U.username, A.sent_at, A.content
              FROM users U, Answers A
              WHERE A.user_id=U.id AND A.question_id=:question_id AND A.visible=1
              ORDER BY A.id"""
-    answers = db.session.execute(sql)
+    answers = db.session.execute(sql, {"question_id":question_id})
     return answers.fetchall()
 
 def send_question(content):
