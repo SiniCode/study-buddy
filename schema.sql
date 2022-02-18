@@ -9,16 +9,18 @@ CREATE TABLE questions (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users,
     sent_at TIMESTAMP,
-    content TEXT
+    content TEXT,
+    visible INTEGER
 );
 
 CREATE TABLE answers (
     id SERIAL PRIMARY KEY,
-    answer_to INTEGER REFERENCES questions,
+    question_id INTEGER REFERENCES questions,
     user_id INTEGER REFERENCES users,
     sent_at TIMESTAMP,
     content TEXT,
-    likes INTEGER
+    likes INTEGER,
+    visible INTEGER
 );
 
 CREATE TABLE quizzes (
