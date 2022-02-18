@@ -66,6 +66,13 @@ def chat():
         else:
             return render_template("chat.html", questions=question_list, error_message="Oops, something went wrong. Please, try again!")
 
+@app.route("/delete/<int:question_id>", methods=["GET"])
+def delete_q(question_id):
+    if delete_question(question_id):
+        return redirect("/chat")
+    else:
+        return render_template("error.html", message="You cannot delete this message.")
+
 @app.route("/statistics")
 def statistics():
     return render_template("statistics.html")
