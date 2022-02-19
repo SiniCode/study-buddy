@@ -37,6 +37,6 @@ def get_quizzes():
     sql = "SELECT id, name FROM quizzes WHERE visible=1"
     return db.session.execute(sql).fetchall()
 
-def det_quiz_info(quiz_id):
+def get_quiz_info(quiz_id):
     sql = "SELECT name, description FROM quizzes WHERE quiz_id=:quiz_id"
     return db.session.execute(sql, {"quiz_id":quiz_id}).fetchone()
