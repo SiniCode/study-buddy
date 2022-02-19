@@ -1,4 +1,4 @@
-import random
+from random import randint
 from db import db
 
 
@@ -24,19 +24,19 @@ def count_exercises(quiz_id):
     return db.session.execute(sql, {"quiz_id":quiz_id}).fetchone()
 
 def get_random_task(quiz_id):
-    ex_count = count_exercises(quiz_id)
+    ex_count = int(count_exercises(quiz_id)[0])
     pos = randint(0, ex_count-1)
-    sql = "SELECT id, task FROM exercises WHERE quiz_id=:quix_id LIMIT 1 OFFSET :pos"
+    sql = "SELECT id, task FROM exercises WHERE quiz_id=:quiz_id LIMIT 1 OFFSET :pos"
     return db.session.execute(sql, {"quiz_id":quiz_id, "pos":pos}).fetchone()
 
 def get_solution(exercise_id):
     sql = "SELECT solution FROM exercises WHERE id=:exercise_id"
-    return db.session.execute(sql, {"id":exercise_id}).fetchone()[0]
+    return db.session.execute(sql, {"exercise_id":exercise_id}).fetchone()[0]
 
 def get_quizzes():
     sql = "SELECT id, name FROM quizzes WHERE visible=1"
     return db.session.execute(sql).fetchall()
 
 def get_quiz_info(quiz_id):
-    sql = "SELECT name, description FROM quizzes WHERE quiz_id=:quiz_id"
+    sql = "SELECT name, description FROM quizzes WHERE id=:quiz_id"
     return db.session.execute(sql, {"quiz_id":quiz_id}).fetchone()

@@ -51,7 +51,7 @@ def home():
 @app.route("/play/<int:quiz_id>", methods=["GET"])
 def play(quiz_id):
     quiz = quizzes.get_quiz_info(quiz_id)
-    task = quizzes.qet_random_task(quiz_id)
+    task = quizzes.get_random_task(quiz_id)
     return render_template("play.html", quiz_id=quiz_id, quiz_name=quiz[0], quiz_description=quiz[1], task=task[1], exercise_id=task[0])
 
 
@@ -152,4 +152,4 @@ def create_quiz():
             return render_template("error.html", message="The exercise section can have 10000 characters at maximum.")
 
         quiz_id = quizzes.add_quiz(name, description, exercises)
-        return redirect("/quiz/"+str(quiz_id))
+        return redirect("/play/"+str(quiz_id))
