@@ -40,3 +40,9 @@ def get_quizzes():
 def get_quiz_info(quiz_id):
     sql = "SELECT name, description FROM quizzes WHERE id=:quiz_id"
     return db.session.execute(sql, {"quiz_id":quiz_id}).fetchone()
+
+def save_attempt(user_id, quiz_id, score):
+    sql = """INSERT INTO attempts (user_id, quiz_id, score)
+             VALUES (:user_id, :quiz_id, :score)"""
+    db.session.execute(sql, {"user_id":user_id, "quiz_id":quiz_id, "score":score})
+    db.session.commit()

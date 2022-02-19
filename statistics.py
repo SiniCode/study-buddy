@@ -4,13 +4,17 @@ def get_user_stats(user_id):
     sql = "SELECT id, name FROM quizzes WHERE visible=1"
     quizzes = db.session.execute(sql).fetchall()
 
-    data = []
+    data = ["Quiz: correct solutions / all attempts (success rate)"]
     for quiz in quizzes:
         sql = """SELECT COALESCE(SUM(score),0), COUNT(*)
-                 FROM attempts a
+                 FROM attempts
                  WHERE quiz_id=:quiz_id AND user_id=:user_id"""
         score = db.session.execute(sql, {"quiz_id":quiz[0], "user_id":user_id}).fetchone()
-        result = f"{quiz[1]}: {score[0]} / {score[1]} points"
+        if score[1] == 0:
+            success_rate = 0
+        else:
+            success_rate = score[0]/score[1]
+        result = f"{quiz[1]}: {score[0]} / {score[1]} points ({success_rate:.2f}%)"
         data.append(result)
 
     return data

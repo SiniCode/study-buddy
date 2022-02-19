@@ -63,6 +63,12 @@ def check():
     exercise_id = request.form["exercise_id"]
     answer = request.form["answer"].strip()
     correct = quizzes.get_solution(exercise_id)
+
+    if answer == correct:
+        quizzes.save_attempt(users.user_id(), quiz_id, 1)
+    else:
+        quizzes.save_attempt(users.user_id(), quiz_id, 0)
+
     return render_template("check.html", quiz_id=quiz_id, answer=answer, correct=correct)
 
 @app.route("/logout")
@@ -126,8 +132,13 @@ def delete_answer(question_id, answer_id):
         return render_template("error.html", message="You cannot delete this answer.")
 
 @app.route("/statistics")
-def statistics():
-    return render_template("statistics.html")
+def user_statistics():
+    user_id = users.user_id()
+    if user_id == -1:
+        return render_template("error.html", message="You must sign in to see the stats.")
+
+    stats = statistics.get_user_stats(user_id)
+    return render_template("statistics.html", stats=stats)
 
 @app.route("/create", methods=["GET", "POST"])
 def create_quiz():
