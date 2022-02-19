@@ -8,7 +8,7 @@ def add_quiz(name, description, exercises, visible=1):
     quiz_id = db.session.execute(sql, {"name":name, "description":description, "visible":visible}).fetchone()[0]
 
     for exercise in exercises.split("\n"):
-        parts = exercise.strip().split(",")
+        parts = exercise.strip().split(";")
         if len(parts) != 2:
             continue
 

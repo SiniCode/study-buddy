@@ -2,6 +2,9 @@
 {% block title %}Play{% endblock %}
 {% block content %}
 <h2>{{ quiz_name }}</h2>
+<p>{{ quiz_description }}</p>
+<hr>
+{% if session.user_id %}
 <p>{{ task }}</p>
 <form action="/check" method="POST">
   <input type="text" name="answer">
@@ -11,4 +14,6 @@
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 <p><a href="/home">Quit</a></p>
+{% else %}
+<p><a href="/">Log in</a> to play</p>
 {% endblock %}

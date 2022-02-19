@@ -45,6 +45,10 @@ def logout():
 def user_id():
     return session.get("user_id", -1)
 
+def check_status():
+    status = session.get("user_role", "")
+    if status != "admin":
+        abort(403)
 
 def check_csrf():
     if session["csrf_token"] != request.form["csrf_token"]:

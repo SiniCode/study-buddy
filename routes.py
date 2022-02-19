@@ -48,6 +48,23 @@ def register():
 def home():
     return render_template("home.html", quizzes=quizzes.get_quizzes())
 
+@app.route("/play/<int:quiz_id>", methods=["GET"])
+def play(quiz_id):
+    quiz = quizzes.get_quiz_info(quiz_id)
+    task = quizzes.qet_random_task(quiz_id)
+    return render_template("play.html", quiz_id=quiz_id, quiz_name=quiz[0], quiz_description=quiz[1], task=task[1], exercise_id=task[0])
+
+
+@app.route("/check", methods=["POST"])
+def check():
+    users.check_csrf()
+
+    quiz_id = request.form["quiz_id"]
+    exercise_id = request.form["exercise_id"]
+    answer = request.form["answer"].strip()
+    correct = quizzes.get_solution(exercise_id)
+    return render_template("check.html", quiz_id=quiz_id, answer=answer, correct=correct)
+
 @app.route("/logout")
 def logout():
     users.logout()
@@ -111,3 +128,28 @@ def delete_answer(question_id, answer_id):
 @app.route("/statistics")
 def statistics():
     return render_template("statistics.html")
+
+@app.route("/create", methods=["GET", "POST"])
+def create_quiz():
+    users.check_status()
+
+    if request.method == "GET":
+        return render_template("create.html")
+
+    if request.method == "POST":
+        users.check_csrf()
+
+        name = request.form["name"].strip()
+        if len(name) < 1 or len(name) > 30:
+            return render_template("error.html", message="The name must have 1-30 characters.")
+
+        description = request.form["description"].strip()
+        if len(description) > 500:
+            return render_template("error.html", message="The description cannot have more than 500 characters.")
+
+        exercises = request.form["exercises"].strip()
+        if len(exercises) > 10000:
+            return render_template("error.html", message="The exercise section can have 10000 characters at maximum.")
+
+        quiz_id = quizzes.add_quiz(name, description, exercises)
+        return redirect("/quiz/"+str(quiz_id))
