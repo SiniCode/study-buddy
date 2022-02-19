@@ -36,7 +36,6 @@ def register(username, password, role):
     return login(username, password)
 
 
-
 def logout():
     del session["user_id"]
     del session["username"]

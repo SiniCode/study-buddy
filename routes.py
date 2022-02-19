@@ -33,10 +33,16 @@ def register():
         if len(password) < 3 or len(password) > 20:
             return render_template("error.html", message="Make sure the password has 3 to 20 characters.")
 
-        if not users.register(username, password, "buddy"):
-            return render_template("error.html", message="This username might already be taken. Please, try choosing another username.")
+        if username == "Admin":
+            if not users.register(username, password, "admin"):
+                return render_template("error.html", message="Please select another username and try again.")
+            else:
+                return redirect("/home")
+        else:
+            if not users.register(username, password, "buddy"):
+                return render_template("error.html", message="This username might already be taken. Please, try choosing another username.")
 
-        return redirect("/home")
+            return redirect("/home")
 
 @app.route("/home")
 def home():
