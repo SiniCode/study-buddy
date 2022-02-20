@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
-{% block title %}Chat{% endblock %}
+{% block title %}Questions{% endblock %}
 {% block content %}
 <p class="logout"><a href="/logout">Log out</a></p>
 <hr>
-<h2>Buddy Chat</h2>
+<h2>Question Forum</h2>
 {% if session.user_id %}
 <form action="/chat" method="post">
   Send a question to your buddies:
