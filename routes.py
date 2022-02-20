@@ -8,39 +8,39 @@ import statistics
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        return render_template("index.html")
+        return render_template("index.html", error="")
 
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
 
         if not users.login(username, password):
-            return render_template("error.html", message="Invalid username or password. Please, try again!")
+            return render_template("index.html", error="Invalid username or password. Please, try again!")
 
         return redirect("/home")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
-        return render_template("register.html")
+        return render_template("register.html", error="")
 
     if request.method == "POST":
         username = request.form["username"]
         if len(username) < 1 or len(username) > 20:
-            return render_template("error.html", message="Make sure the username has 1 to 20 characters.")
+            return render_template("register.html", error="Make sure the username has 1 to 20 characters.")
 
         password = request.form["password"]
         if len(password) < 3 or len(password) > 20:
-            return render_template("error.html", message="Make sure the password has 3 to 20 characters.")
+            return render_template("register.html", error="Make sure the password has 3 to 20 characters.")
 
         if username == "Admin":
             if not users.register(username, password, "admin"):
-                return render_template("error.html", message="Please select another username and try again.")
+                return render_template("register.html", error="Please select another username and try again.")
             else:
                 return redirect("/home")
         else:
             if not users.register(username, password, "buddy"):
-                return render_template("error.html", message="This username might already be taken. Please, try choosing another username.")
+                return render_template("register.html", error="This username might already be taken. Please, try choosing another username.")
 
             return redirect("/home")
 

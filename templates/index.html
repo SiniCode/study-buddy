@@ -2,7 +2,12 @@
 {% block title %}Welcome{% endblock %}
 {% block content %}
 <h2>Hello, buddy!</h2>
-<p>Log in to sharpen your skills:</p>
+<p>
+  Log in to sharpen your skills:
+  <br>
+  <b>{{ error }}</b>
+  <br>
+</p>
 <form action="/" method="POST">
   <label for="username">Username:</label>
   <input type="text" name="username">
