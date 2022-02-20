@@ -164,3 +164,18 @@ def create_quiz():
 
         quiz_id = quizzes.add_quiz(name, description, exercises)
         return redirect("/play/"+str(quiz_id))
+
+@app.route("/admin", methods=["GET"])
+def admin():
+    user_count = statistics.get_user_count()
+    quizzes = statistics.get_quiz_stats(users.user_id())
+
+    return render_template("admin.html", user_count=user_count, quizzes=quizzes)
+
+@app.route("/delete/quiz", methods=["POST"])
+def delete_quiz():
+    quiz_id = request.form["quiz_id"]
+    if quizzes.delete_quiz(quiz_id):
+        return redirect("/admin")
+    else:
+        return render_template("error.html", message="Something went wrong. Please, check the id number.")

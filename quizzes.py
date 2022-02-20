@@ -1,8 +1,10 @@
 from random import randint
 from db import db
-
+import users
 
 def add_quiz(name, description, exercises, visible=1):
+    users.check_status()
+
     sql = """INSERT INTO quizzes (name, description, visible)
              VALUES (:name, :description, :visible) RETURNING id"""
     quiz_id = db.session.execute(sql, {"name":name, "description":description, "visible":visible}).fetchone()[0]
@@ -46,3 +48,14 @@ def save_attempt(user_id, quiz_id, score):
              VALUES (:user_id, :quiz_id, :score)"""
     db.session.execute(sql, {"user_id":user_id, "quiz_id":quiz_id, "score":score})
     db.session.commit()
+
+def delete_quiz(quiz_id):
+    users.check_status()
+    try:
+        sql = """UPDATE quizzes SET visible=0
+                 WHERE id=:quiz_id"""
+        db.session.execute(sql, {"quiz_id":quiz_id})
+        db.session.commit()
+    except:
+        return False
+    return True

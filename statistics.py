@@ -19,17 +19,24 @@ def get_user_stats(user_id):
 
     return data
 
-def get_app_stats(user_id):
+def get_user_count():
+    sql = "SELECT COUNT(*) FROM users"
+    user_count = db.session.execute(sql).fetchone()[0]
+    return user_count
+
+def get_quiz_stats(user_id):
     sql = "SELECT role FROM users WHERE id=:user_id"
-    role = db.session.execute(sql, {"id":user_id}).fetchone()[0]
+    role = db.session.execute(sql, {"user_id":user_id}).fetchone()[0]
     if role != "admin":
         return []
 
-    sql = "SELECT COUNT(*) FROM users"
-    user_count = db.session.execute(sql).fetchone()[0]
-
-    sql = """SELECT q.id, q.name, COUNT(a.id) FROM attempts a, quizzes q
-             WHERE q.id=a.quiz_id GROUP BY q.id"""
-    data = db.session.execute(sql).fetchall()
-
-    return [user_count, data]
+    data = ["Quiz (id): number of attempts"]
+    sql = """SELECT Q.id, Q.name, COUNT(A.id)
+             FROM quizzes Q LEFT JOIN attempts A ON Q.id=A.quiz_id
+             WHERE Q.visible=1
+             GROUP BY Q.id"""
+    quizzes = db.session.execute(sql).fetchall()
+    for quiz in quizzes:
+        result = f"{quiz[1]} ({quiz[0]}): {quiz[2]}"
+        data.append(result)
+    return data
