@@ -1,25 +1,27 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
+<p class="logout"><a href="/logout">Log out</a></p>
+<hr>
 <h2>Hey, buddy, choose your next activity!</h2>
-<p>Rehearse your skills:
+<p>
+  <b>Rehearse your skills:</b>
   <ul>
     {% for quiz in quizzes %}
     <li><a href="/play/{{ quiz.id }}">{{ quiz.name }}</a>
     {% endfor %}
   </ul>
 
-  <a href="/chat">Chat with other buddies</a>
+  <a href="/chat">Chat</a> with other buddies
   <br>
-  <a href="/statistics">Check your progress</a>
-  <br>
-  <a href="/logout">Log out</a>
+  <a href="/statistics">Check</a> your progress
 
   {% if session.user_role == "admin" %}
   <hr>
+  <b>Administration</b>
   <ul>
-    <li><a href="/create">Create a new quiz</a>
-    <li><a href="/admin">Check app statistics</a>
+    <li><a href="/create">Create</a> a new quiz
+    <li><a href="/admin">Check</a> app statistics
   </ul>
   {% endif %}  
 </p>

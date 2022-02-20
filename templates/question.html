@@ -1,24 +1,26 @@
 {% extends "layout.html" %}
 {% block title %}Question{% endblock %}
 {% block content %}
-
+<p class="logout"><a href="/logout">Log out</a></p>
+<hr>
 <h2>Question</h2>
-<p><b>{{ question[1] }}</b>
-<br>
-Sent at: {{ question[2].strftime("%d/%m/%Y %H:%M:%S") }}
-<br>
-{{ question[3] }}
+<p>
+  <b>{{ question[1] }}</b>
+  <br>
+  Sent at: {{ question[2].strftime("%d/%m/%Y %H:%M:%S") }}
+  <br>
+  {{ question[3] }}
 </p>
 <hr>
 
 <h3>Your answer</h3>
 {% if session.user_id %} 
 <form action="/question/{{ question[0] }}" method="post">
-Write your answer:
-<br>
-<textarea name="content" rows="4" cols="40"></textarea>
-<br>
-<input type="submit" value="Send">
+  Write your answer:
+  <br>
+  <textarea name="content" rows="4" cols="40"></textarea>
+  <br>
+  <input type="submit" value="Send">
 </form>
 <p>{{ error_message }}</p>
 {% else %}
@@ -28,11 +30,12 @@ Write your answer:
 
 <h3>Previous answers</h3>
 {% for answer in answers %}
-<p><b>{{ answer[2] }}</b>
-<br>
-Sent at: {{ answer[3].strftime("%d/%m/%Y %H:%M:%S") }}
-<br>
-{{ answer[4] }}
+<p>
+  <b>{{ answer[2] }}</b>
+  <br>
+  Sent at: {{ answer[3].strftime("%d/%m/%Y %H:%M:%S") }}
+  <br>
+  {{ answer[4] }}
 </p>
 {% if session.user_id == answer[1] %}
 <a href="/delete/{{ question[0] }}/{{ answer[0] }}">Delete answer</a>

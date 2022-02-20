@@ -1,26 +1,28 @@
 {% extends "layout.html" %}
 {% block title %}Chat{% endblock %}
 {% block content %}
+<p class="logout"><a href="/logout">Log out</a></p>
+<hr>
 <h2>Buddy Chat</h2>
-
 {% if session.user_id %}
 <form action="/chat" method="post">
-Send a question to your buddies:
-<br>
-<textarea name="content" rows="4" cols="40"></textarea>
-<br>
-<input type="submit" value="Send">
+  Send a question to your buddies:
+  <br>
+  <textarea name="content" rows="4" cols="40"></textarea>
+  <br>
+  <input type="submit" value="Send">
 </form>
 <p>{{ error_message }}</p>
 {% endif %}
 <hr>
 
 {% for question in questions %}
-<p><b>{{ question[2] }}</b>
-<br>
-Sent at: {{ question[3].strftime("%d/%m/%Y %H:%M:%S") }}
-<br>
-{{ question[4] }}
+<p>
+  <b>{{ question[2] }}</b>
+  <br>
+  Sent at: {{ question[3].strftime("%d/%m/%Y %H:%M:%S") }}
+  <br>
+  {{ question[4] }}
 </p>
 <a href="/question/{{ question[0] }}">Show answers</a>
 <br>

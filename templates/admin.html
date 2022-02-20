@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% block title %}Administration{% endblock %}
 {% block content %}
+<p class="logout"><a href="/logout">Log out</a></p>
+<hr>
 {% if session.user_role == "admin" %}
 <h2>App statistics</h2>
 <h3>Users</h3>

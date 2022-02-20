@@ -40,3 +40,7 @@ a:visited {
 a:hover {
     color: #26252E;
 }
+
+.logout {
+    text-align: right;
+}
