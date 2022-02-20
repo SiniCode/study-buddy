@@ -13,7 +13,7 @@ def get_user_stats(user_id):
         if score[1] == 0:
             success_rate = 0
         else:
-            success_rate = score[0]/score[1]
+            success_rate = score[0]/score[1]*100
         result = f"{quiz[1]}: {score[0]} / {score[1]} points ({success_rate:.2f}%)"
         data.append(result)
 
