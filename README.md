@@ -57,6 +57,11 @@ An administrator can additionally
 * delete quizzes
 * see some statistics on the use of the app
 
+To test the administration options:
+* Username: Admin
+* Password: TheBossBuddy
+* Note! There isn't any function for bringing deleted quizzes back yet, so if you try deleting a quiz, please, create one first. :)
+
 I have also tried to improve usability by
 * showing error messages on the same page that causes the error instead of a separate page
 * adding a logout link to every page and locating it better
