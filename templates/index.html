@@ -9,12 +9,10 @@
   <br>
 </p>
 <form action="/" method="POST">
-  <label for="username">Username:</label>
-  <input type="text" name="username">
-  <br>
-  <label for="password">Password:</label>
-  <input type="password" name="password">
-  <br>
+  <label for="username">Username:</label><br>
+  <input type="text" name="username" value={{ prefill }}><br>
+  <label for="password">Password:</label><br>
+  <input type="password" name="password"><br>
   <input id=button type="submit" value="Log in">
 </form>
 <p>To create a new account, click <a href="/register">here</a>.</p>

@@ -8,39 +8,43 @@ import statistics
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        return render_template("index.html", error="")
+        return render_template("index.html", error="", prefill="")
 
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
 
         if not users.login(username, password):
-            return render_template("index.html", error="Invalid username or password. Please, try again!")
+            return render_template("index.html", error="Invalid username or password. Please, try again!", prefill=username)
 
         return redirect("/home")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
-        return render_template("register.html", error="")
+        return render_template("register.html", error="", prefill="")
 
     if request.method == "POST":
         username = request.form["username"]
         if len(username) < 1 or len(username) > 20:
-            return render_template("register.html", error="Make sure the username has 1 to 20 characters.")
+            return render_template("register.html", error="Make sure the username has 1 to 20 characters.", prefill="")
 
         password = request.form["password"]
         if len(password) < 3 or len(password) > 20:
-            return render_template("register.html", error="Make sure the password has 3 to 20 characters.")
+            return render_template("register.html", error="Make sure the password has 3 to 20 characters.", prefill=username)
+
+        password2 = request.form["password2"]
+        if password != password2:
+            return render_template("register.html", error="The passwords don't match.", prefill=username)
 
         if username == "Admin":
             if not users.register(username, password, "admin"):
-                return render_template("register.html", error="Please select another username and try again.")
+                return render_template("register.html", error="Please select another username and try again.", prefill="")
             else:
                 return redirect("/home")
         else:
             if not users.register(username, password, "buddy"):
-                return render_template("register.html", error="This username might already be taken. Please, try choosing another username.")
+                return render_template("register.html", error="This username might already be taken. Please, try choosing another username.", prefill="")
 
             return redirect("/home")
 
