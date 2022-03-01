@@ -14,14 +14,15 @@
 
   <a href="/chat">Question Forum</a>
   <a href="/statistics">Check your progress</a>
-
-  {% if session.user_role == "admin" %}
-  <hr>
-  <b>Administration</b>
+</p>
+{% if session.user_role == "admin" %}
+<hr>
+<h3>Administration</h3>
+<p>
   <ul>
     <li><a href="/create">Create a new quiz</a>
     <li><a href="/admin">Check app statistics</a>
   </ul>
-  {% endif %}  
 </p>
+{% endif %}
 {% endblock %}

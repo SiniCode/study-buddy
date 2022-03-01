@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% block title %}Create{% endblock %}
 {% block content %}
+<p class="logout"><a href="/logout">Log out</a></p>
+<hr>
 <h2>Create a new quiz</h2>
 <form action="/create" method="post">
 Name:
@@ -17,7 +19,7 @@ Exercises:
 task;solution
 </textarea>
 <br>
-<input type="submit" value="Save">
+<input id=button3 type="submit" value="Save">
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 <hr>

@@ -43,8 +43,14 @@ form input:focus {
     border-radius: 2px;
 }
 
-form label{
+form label {
     margin-bottom: 10px;
+}
+
+form textarea {
+    padding: 5px;
+    margin-top: 8px;
+    margin-bottom: 15px;
 }
 
 form #button {
@@ -64,7 +70,6 @@ form #button2 {
 
 form #button3 {
     width: 4em;
-    margin-top: 10px;
     padding: 5px;
 }
 
