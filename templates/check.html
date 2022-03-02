@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Check{% endblock %}
 {% block content %}
-<p class="logout"><a href="/logout">Log out</a></p>
+<p class="logout"><a href="/logout" class="class2">Log out</a></p>
 <hr>
 {% if answer == correct %}
 <h2>Well done, buddy!</h2>
@@ -12,7 +12,7 @@
 
 <hr>
 <p>
-  <a href="/play/{{ quiz_id }}">Next task</a>
-  <a href="/home">End Quiz</a>
+  <a href="/play/{{ quiz_id }}" class="class1">Next task</a>
+  <a href="/home" class="class2">End Quiz</a>
 </p>
 {% endblock %}

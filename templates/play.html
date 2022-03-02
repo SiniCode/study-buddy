@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Play{% endblock %}
 {% block content %}
-<p class="logout"><a href="/logout">Log out</a></p>
+<p class="logout"><a href="/logout" class="class2">Log out</a></p>
 <hr>
 <h2>{{ quiz_name }}</h2>
 <p>{{ quiz_description }}</p>
@@ -15,8 +15,8 @@
   <input id=button2 type="submit" value="Check">
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
-<p><a href="/home">End Quiz</a></p>
+<p><a href="/home" class="class2">End Quiz</a></p>
 {% else %}
-<p><a href="/">Log in</a> to play</p>
+<p><a href="/" class="class2">Log in</a> to play</p>
 {% endif %}
 {% endblock %}

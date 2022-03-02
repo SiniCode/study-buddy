@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Administration{% endblock %}
 {% block content %}
-<p class="logout"><a href="/logout">Log out</a></p>
+<p class="logout"><a href="/logout" class="class2">Log out</a></p>
 <hr>
 {% if session.user_role == "admin" %}
 <h2>App statistics</h2>
@@ -26,6 +26,6 @@
 </form>
 <hr>
 
-<p><a href="/home">Back</a></p>
+<p><a href="/home" class="class2">Back</a></p>
 {% endif %}
 {% endblock %}

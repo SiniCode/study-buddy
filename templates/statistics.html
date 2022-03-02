@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Statistics{% endblock %}
 {% block content %}
-<p class="logout"><a href="/logout">Log out</a></p>
+<p class="logout"><a href="/logout" class="class2">Log out</a></p>
 <hr>
 <h2>Your Study Buddy Stats</h2>
 <p><b>{{ stats[0] }}</b>
@@ -12,5 +12,5 @@
   </ul>
 </p>
 <hr>
-<a href="/home">Back</a>
+<a href="/home" class="class2">Back</a>
 {% endblock %}

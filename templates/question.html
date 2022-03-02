@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Question{% endblock %}
 {% block content %}
-<p class="logout"><a href="/logout">Log out</a></p>
+<p class="logout"><a href="/logout" class="class2">Log out</a></p>
 <hr>
 <h2>Question</h2>
 <p>
@@ -23,7 +23,7 @@
 </form>
 <p>{{ error_message }}</p>
 {% else %}
-<a href="/">Log in</a>
+<a href="/" class="class2">Log in</a>
 {% endif %}
 <hr>
 
@@ -37,10 +37,10 @@
   {{ answer[4] }}
 </p>
 {% if session.user_id == answer[1] %}
-<a href="/delete/{{ question[0] }}/{{ answer[0] }}">Delete answer</a>
+<a href="/delete/{{ question[0] }}/{{ answer[0] }}" class="class2">Delete answer</a>
 {% endif %}
 {% endfor %}
 <hr>
 
-<a href="/chat">Back</a>
+<a href="/chat" class="class2">Back</a>
 {% endblock %}
