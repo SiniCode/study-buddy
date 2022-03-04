@@ -12,8 +12,8 @@ def get_questions():
 def get_question_by_id(question_id):
     sql = """SELECT Q.id, U.username, Q.sent_at, Q.content
              FROM users U, Questions Q
-             WHERE Q.user_id=U.id AND Q.visible=1"""
-    question = db.session.execute(sql)
+             WHERE Q.id=:question_id AND Q.user_id=U.id AND Q.visible=1"""
+    question = db.session.execute(sql, {"question_id":question_id})
     return question.fetchone()
 
 def get_answers_by_question(question_id):
