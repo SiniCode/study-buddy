@@ -65,10 +65,10 @@ def check():
 
     quiz_id = request.form["quiz_id"]
     exercise_id = request.form["exercise_id"]
-    answer = request.form["answer"].strip()
+    answer = request.form["answer"].strip().lstrip("0")
     correct = quizzes.get_solution(exercise_id)
 
-    if answer == correct:
+    if answer.lower() == correct.lower():
         quizzes.save_attempt(users.user_id(), quiz_id, 1)
     else:
         quizzes.save_attempt(users.user_id(), quiz_id, 0)

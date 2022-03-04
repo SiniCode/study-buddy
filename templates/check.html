@@ -3,7 +3,7 @@
 {% block content %}
 <p class="logout"><a href="/logout" class="class2">Log out</a></p>
 <hr>
-{% if answer == correct %}
+{% if answer.lower() == correct.lower() %}
 <h2>Well done, buddy!</h2>
 {% else %}
 <h2>Not quite, buddy...</h2>
