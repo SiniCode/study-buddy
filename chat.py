@@ -38,8 +38,8 @@ def send_answer(question_id, content):
     user_id = users.user_id()
     if user_id == -1:
         return False
-    sql = """INSERT INTO answers (question_id, user_id, sent_at, content, likes, visible)
-             VALUES (:question_id, :user_id, NOW(), :content, 0, 1)"""
+    sql = """INSERT INTO answers (question_id, user_id, sent_at, content, visible)
+             VALUES (:question_id, :user_id, NOW(), :content, 1)"""
     db.session.execute(sql, {"question_id":question_id, "user_id":user_id, "content":content})
     db.session.commit()
     return True
