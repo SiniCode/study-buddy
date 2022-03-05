@@ -5,13 +5,12 @@
 <hr>
 <h2>Hey, buddy, choose your next activity!</h2>
 <p>
-  <b>Rehearse your skills:</b>
   <ul>
+    <b>Rehearse your skills:</b>
     {% for quiz in quizzes %}
     <li><a href="/play/{{ quiz.id }}" class="class2">{{ quiz.name }}</a>
     {% endfor %}
   </ul>
-
   <a href="/chat" class="class1">Question Forum</a>
   <a href="/statistics" class="class2">Check your progress</a>
 </p>

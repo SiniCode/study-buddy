@@ -4,13 +4,12 @@
 <p class="logout"><a href="/logout" class="class2">Log out</a></p>
 <hr>
 <h2>Your Study Buddy Stats</h2>
-<p><b>{{ stats[0] }}</b>
-  <ul>
-    {% for row in stats[1:] %}
-    <li>{{ row }}
-    {% endfor %}
-  </ul>
-</p>
+<ul>
+  <p><b>{{ stats[0] }}</b></p>
+  {% for row in stats[1:] %}
+  <li>{{ row }}
+  {% endfor %}
+</ul>
 <hr>
 <a href="/home" class="class2">Back</a>
 {% endblock %}

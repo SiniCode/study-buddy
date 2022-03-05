@@ -7,8 +7,8 @@
 <p>{{ quiz_description }}</p>
 <hr>
 {% if session.user_id %}
-<p>{{ task }}</p>
 <form action="/check" method="POST">
+  <p><b>{{ task }}</b></p>
   <input type="text" name="answer">
   <input type="hidden" name="quiz_id" value="{{ quiz_id }}">
   <input type="hidden" name="exercise_id" value="{{ exercise_id }}">

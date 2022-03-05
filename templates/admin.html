@@ -17,9 +17,8 @@
   {% endfor %}
 </ul>
 <form action="/delete/quiz" method="POST">
-  <p><b>Delete quiz</b><br>
-    Quiz identification number:
-  </p>
+  <p><b>Delete quiz</b><br></p>
+  <label for="quiz_id">Quiz identification number:</label><br>
   <input type="number" name="quiz_id">
   <input id=button2 type="submit" value="Delete">
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
@@ -33,9 +32,8 @@
   {% endfor %}
 </ul>
 <form action="/restore" method="POST">
-  <p><b>Restore quiz</b><br>
-    Quiz identification number:
-  </p>
+  <p><b>Restore quiz</b></p>
+  <label for="quiz_id">Quiz identification number:</label><br>
   <input type="number" name="quiz_id">
   <input id=button2 type="submit" value="Restore">
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
