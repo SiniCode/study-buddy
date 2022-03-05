@@ -5,7 +5,7 @@
 <hr>
 {% if session.user_role == "admin" %}
 <h2>App statistics</h2>
-<p><b>{{ message }}<b></p>
+<p><b>{{ message }}</b></p>
 <form action="/delete/user" method="POST">
   <h3>Users</h3>
   <h4>Total amount of users: {{ user_count }}</h4>

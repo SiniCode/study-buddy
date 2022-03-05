@@ -21,7 +21,6 @@ def login(username, password):
 
     return True
 
-
 def register(username, password, role):
     hash_value = generate_password_hash(password)
 
@@ -35,12 +34,10 @@ def register(username, password, role):
 
     return login(username, password)
 
-
 def logout():
     del session["user_id"]
     del session["username"]
     del session["user_role"]
-
 
 def user_id():
     return session.get("user_id", -1)
@@ -54,7 +51,19 @@ def check_csrf():
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
 
+def get_users():
+    sql = "SELECT username FROM users"
+    result = db.session.execute(sql).fetchall()
+    usernames = []
+    for tuple in result:
+        usernames.append(tuple[0])
+    return usernames
+
 def delete_user(username):
+    users = get_users()
+    if not username in users:
+        return False
+
     try:
         sql = "DELETE FROM users WHERE username=:username"
         db.session.execute(sql, {"username":username})

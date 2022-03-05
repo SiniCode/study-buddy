@@ -62,6 +62,13 @@ def save_attempt(user_id, quiz_id, score):
 
 def delete_quiz(quiz_id):
     users.check_status()
+
+    quiz_ids = []
+    for tuple in get_quizzes():
+        quiz_ids.append(str(tuple[0]))
+    if not quiz_id in quiz_ids:
+        return False
+
     try:
         sql = """UPDATE quizzes SET visible=0
                  WHERE id=:quiz_id"""
@@ -73,6 +80,15 @@ def delete_quiz(quiz_id):
 
 def restore_quiz(quiz_id):
     users.check_status()
+
+    sql = "SELECT id FROM quizzes WHERE visible=0"
+    result = db.session.execute(sql).fetchall()
+    quiz_ids = []
+    for tuple in result:
+        quiz_ids.append(str(tuple[0]))
+    if not quiz_id in quiz_ids:
+        return False
+
     try:
         sql = """UPDATE quizzes SET visible=1
                  WHERE id=:quiz_id"""
