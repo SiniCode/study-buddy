@@ -172,14 +172,25 @@ def create_quiz():
 @app.route("/admin", methods=["GET"])
 def admin():
     user_count = statistics.get_user_count()
-    quizzes = statistics.get_quiz_stats(users.user_id())
+    quiz_list = statistics.get_quiz_stats(users.user_id())
+    deleted = quizzes.get_deleted_quizzes()
 
-    return render_template("admin.html", user_count=user_count, quizzes=quizzes)
+    return render_template("admin.html", user_count=user_count, quizzes=quiz_list, deleted=deleted)
 
 @app.route("/delete/quiz", methods=["POST"])
 def delete_quiz():
+    users.check_csrf()
     quiz_id = request.form["quiz_id"]
     if quizzes.delete_quiz(quiz_id):
         return redirect("/admin")
     else:
-        return render_template("error.html", message="Something went wrong. Please, check the id number.")
+        return render_template("error.html", message="Deleting the quiz didn't succeed. Please, check the id number.")
+
+@app.route("/restore", methods=["POST"])
+def restore_quiz():
+    users.check_csrf()
+    quiz_id = request.form["quiz_id"]
+    if quizzes.restore_quiz(quiz_id):
+        return redirect("/admin")
+    else:
+        return render_template("error.html", message="Restoring the quiz didn't succeed. Please, check the id number.")

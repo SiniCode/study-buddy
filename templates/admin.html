@@ -9,19 +9,35 @@
 <p>Total amount of users: {{ user_count }}</p>
 <hr>
 
-<h3>Quizzes</h3>
-<p>{{ quizzes[0] }}</p>
 <ul>
+  <h3>Quizzes</h3>
+  <p>{{ quizzes[0] }}</p>
   {% for quiz in quizzes[1:] %}
   <li>{{ quiz }}
   {% endfor %}
 </ul>
-<p><b>Delete quiz</b></p>
-<form action="delete/quiz" method="POST">
-  Quiz identification number:
-  <br>
+<form action="/delete/quiz" method="POST">
+  <p><b>Delete quiz</b><br>
+    Quiz identification number:
+  </p>
   <input type="number" name="quiz_id">
   <input id=button2 type="submit" value="Delete">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+<hr>
+
+<ul>
+  <h3>Deleted quizzes</h3>
+  {% for quiz in deleted %}
+  <li>{{ quiz }}
+  {% endfor %}
+</ul>
+<form action="/restore" method="POST">
+  <p><b>Restore quiz</b><br>
+    Quiz identification number:
+  </p>
+  <input type="number" name="quiz_id">
+  <input id=button2 type="submit" value="Restore">
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 <hr>

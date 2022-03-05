@@ -39,6 +39,17 @@ def get_quizzes():
     sql = "SELECT id, name FROM quizzes WHERE visible=1"
     return db.session.execute(sql).fetchall()
 
+def get_deleted_quizzes():
+    sql = "SELECT id, name FROM quizzes WHERE visible=0"
+    quizzes = db.session.execute(sql).fetchall()
+    list = []
+    for quiz in quizzes:
+        text = f"{quiz[1]} ({quiz[0]})"
+        list.append(text)
+    return list
+
+    return db.session.execute(sql).fetchall()
+
 def get_quiz_info(quiz_id):
     sql = "SELECT name, description FROM quizzes WHERE id=:quiz_id"
     return db.session.execute(sql, {"quiz_id":quiz_id}).fetchone()
@@ -53,6 +64,17 @@ def delete_quiz(quiz_id):
     users.check_status()
     try:
         sql = """UPDATE quizzes SET visible=0
+                 WHERE id=:quiz_id"""
+        db.session.execute(sql, {"quiz_id":quiz_id})
+        db.session.commit()
+    except:
+        return False
+    return True
+
+def restore_quiz(quiz_id):
+    users.check_status()
+    try:
+        sql = """UPDATE quizzes SET visible=1
                  WHERE id=:quiz_id"""
         db.session.execute(sql, {"quiz_id":quiz_id})
         db.session.commit()
