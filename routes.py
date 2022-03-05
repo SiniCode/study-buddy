@@ -54,6 +54,10 @@ def home():
 
 @app.route("/play/<int:quiz_id>", methods=["GET"])
 def play(quiz_id):
+    user_id = users.user_id()
+    if user_id == -1:
+        return render_template("error.html", message="You must log in to play.")
+
     quiz = quizzes.get_quiz_info(quiz_id)
     task = quizzes.get_random_task(quiz_id)
     return render_template("play.html", quiz_id=quiz_id, quiz_name=quiz[0], quiz_description=quiz[1], task=task[1], exercise_id=task[0])
@@ -140,7 +144,7 @@ def delete_answer(question_id, answer_id):
 def user_statistics():
     user_id = users.user_id()
     if user_id == -1:
-        return render_template("error.html", message="You must sign in to see the stats.")
+        return render_template("error.html", message="You must log in to see the stats.")
 
     stats = statistics.get_user_stats(user_id)
     return render_template("statistics.html", stats=stats)

@@ -51,7 +51,7 @@ def get_deleted_quizzes():
     return db.session.execute(sql).fetchall()
 
 def get_quiz_info(quiz_id):
-    sql = "SELECT name, description FROM quizzes WHERE id=:quiz_id"
+    sql = "SELECT name, description FROM quizzes WHERE id=:quiz_id AND visible=1"
     return db.session.execute(sql, {"quiz_id":quiz_id}).fetchone()
 
 def save_attempt(user_id, quiz_id, score):
