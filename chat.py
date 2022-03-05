@@ -49,8 +49,8 @@ def delete_question(question_id):
     if user_id == -1:
         return False
     sql = """UPDATE questions SET visible=0
-             WHERE id=:id AND user_id=:user_id"""
-    db.session.execute(sql, {"id":question_id, "user_id":user_id})
+             WHERE id=:id"""
+    db.session.execute(sql, {"id":question_id})
     db.session.commit()
     return True
 
@@ -59,7 +59,7 @@ def delete_answer(answer_id):
     if user_id == -1:
         return False
     sql = """UPDATE answers SET visible=0
-             WHERE id=:id AND user_id=:user_id"""
-    db.session.execute(sql, {"id":answer_id, "user_id":user_id})
+             WHERE id=:id"""
+    db.session.execute(sql, {"id":answer_id})
     db.session.commit()
     return True
