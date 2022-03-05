@@ -58,7 +58,6 @@ def play(quiz_id):
     task = quizzes.get_random_task(quiz_id)
     return render_template("play.html", quiz_id=quiz_id, quiz_name=quiz[0], quiz_description=quiz[1], task=task[1], exercise_id=task[0])
 
-
 @app.route("/check", methods=["POST"])
 def check():
     users.check_csrf()
@@ -88,6 +87,7 @@ def questions():
         return render_template("chat.html", questions=question_list, error_message="")
 
     if request.method == "POST":
+        users.check_csrf()
         content = request.form["content"].strip()
         if content == "":
             return render_template("chat.html", questions=question_list, error_message="You must type the question before sending it.")
@@ -115,6 +115,7 @@ def see_answers(question_id):
         return render_template("question.html", question=question_info, answers=answer_list, error_message="")
 
     if request.method == "POST":
+        users.check_csrf()
         content = request.form["content"].strip()
         if content == "":
             return render_template("question.html", question=question_info, answers=answer_list, error_message="Type your answer")
