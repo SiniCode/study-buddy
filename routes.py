@@ -186,22 +186,49 @@ def admin():
     quiz_list = statistics.get_quiz_stats(users.user_id())
     deleted = quizzes.get_deleted_quizzes()
 
-    return render_template("admin.html", user_count=user_count, quizzes=quiz_list, deleted=deleted)
+    return render_template("admin.html", user_count=user_count, quizzes=quiz_list, deleted=deleted, message="")
+
+@app.route("/delete/user", methods=["POST"])
+def delete_user():
+    users.check_csrf()
+    users.check_status()
+
+    user_count = statistics.get_user_count()
+    quiz_list = statistics.get_quiz_stats(users.user_id())
+    deleted = quizzes.get_deleted_quizzes()
+
+    username = request.form["username"]
+    if users.delete_user(username):
+        return render_template("admin.html", user_count=user_count, quizzes=quiz_list, deleted=deleted, message=f"User {username} was deleted.")
+    else:
+        return render_template("admin.html", user_count=user_count, quizzes=quiz_list, deleted=deleted, message=f"Deleting {username} didn't succeed. Check the username and try again.")
 
 @app.route("/delete/quiz", methods=["POST"])
 def delete_quiz():
     users.check_csrf()
+    users.check_status()
+
+    user_count = statistics.get_user_count()
+    quiz_list = statistics.get_quiz_stats(users.user_id())
+    deleted = quizzes.get_deleted_quizzes()
+
     quiz_id = request.form["quiz_id"]
     if quizzes.delete_quiz(quiz_id):
-        return redirect("/admin")
+        return render_template("admin.html", user_count=user_count, quizzes=quiz_list, deleted=deleted, message="The quiz was deleted.")
     else:
-        return render_template("error.html", message="Deleting the quiz didn't succeed. Please, check the id number.")
+        return render_template("admin.html", user_count=user_count, quizzes=quiz_list, deleted=deleted, message="Deleting the quiz didn't succeed. Check the id number and try again.")
 
 @app.route("/restore", methods=["POST"])
 def restore_quiz():
     users.check_csrf()
+    users.check_status()
+
+    user_count = statistics.get_user_count()
+    quiz_list = statistics.get_quiz_stats(users.user_id())
+    deleted = quizzes.get_deleted_quizzes()
+
     quiz_id = request.form["quiz_id"]
     if quizzes.restore_quiz(quiz_id):
-        return redirect("/admin")
+        return render_template("admin.html", user_count=user_count, quizzes=quiz_list, deleted=deleted, message="The quiz was restored!")
     else:
-        return render_template("error.html", message="Restoring the quiz didn't succeed. Please, check the id number.")
+        return render_template("admin.html", user_count=user_count, quizzes=quiz_list, deleted=deleted, message="Restoring the quiz didn't succeed. Check the id number and try again.")

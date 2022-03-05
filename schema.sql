@@ -7,7 +7,7 @@ CREATE TABLE users (
 
 CREATE TABLE questions (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users,
+    user_id INTEGER REFERENCES users ON DELETE CASCADE,
     sent_at TIMESTAMP,
     content TEXT,
     visible INTEGER
@@ -15,11 +15,10 @@ CREATE TABLE questions (
 
 CREATE TABLE answers (
     id SERIAL PRIMARY KEY,
-    question_id INTEGER REFERENCES questions,
-    user_id INTEGER REFERENCES users,
+    question_id INTEGER REFERENCES questions ON DELETE SET NULL,
+    user_id INTEGER REFERENCES users ON DELETE CASCADE,
     sent_at TIMESTAMP,
     content TEXT,
-    likes INTEGER,
     visible INTEGER
 );
 
@@ -39,7 +38,7 @@ CREATE TABLE exercises (
 
 CREATE TABLE attempts (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users,
+    user_id INTEGER REFERENCES users ON DELETE SET NULL,
     quiz_id INTEGER REFERENCES quizzes,
     score INTEGER
 );

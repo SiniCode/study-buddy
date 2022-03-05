@@ -5,8 +5,19 @@
 <hr>
 {% if session.user_role == "admin" %}
 <h2>App statistics</h2>
-<h3>Users</h3>
-<p>Total amount of users: {{ user_count }}</p>
+<p><b>{{ message }}<b></p>
+<form action="/delete/user" method="POST">
+  <h3>Users</h3>
+  <h4>Total amount of users: {{ user_count }}</h4>
+  <p>
+    <b>Delete user</b><br>
+    Warning: The user and all their messages will be deleted permanently.
+  </p>
+  <label for="username">Username:</label><br>
+  <input type="text" name="username">
+  <input id=button type="submit" value="Delete">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
 <hr>
 
 <ul>

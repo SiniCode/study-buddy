@@ -54,3 +54,11 @@ def check_csrf():
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
 
+def delete_user(username):
+    try:
+        sql = "DELETE FROM users WHERE username=:username"
+        db.session.execute(sql, {"username":username})
+        db.session.commit()
+    except:
+        return False
+    return True
