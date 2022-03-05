@@ -26,16 +26,19 @@ def register():
 
     if request.method == "POST":
         username = request.form["username"]
-        if len(username) < 1 or len(username) > 20:
-            return render_template("register.html", error="Make sure the username has 1 to 20 characters.", prefill="")
-
         password = request.form["password"]
-        if len(password) < 3 or len(password) > 20:
-            return render_template("register.html", error="Make sure the password has 3 to 20 characters.", prefill=username)
-
         password2 = request.form["password2"]
+        error = ""
+
+        if len(username) < 1 or len(username) > 20:
+            error += "Make sure the username has 1 to 20 characters."
+        if len(password) < 3 or len(password) > 20:
+            error += " Make sure the password has 3 to 20 characters."
         if password != password2:
-            return render_template("register.html", error="The passwords don't match.", prefill=username)
+            error += " Make sure that the passwords match."
+
+        if error != "":
+            return render_template("register.html", error=error, prefill=username)
 
         if username == "Admin":
             if not users.register(username, password, "admin"):
@@ -88,20 +91,20 @@ def questions():
     question_list = chat.get_questions()
 
     if request.method == "GET":
-        return render_template("chat.html", questions=question_list, error_message="")
+        return render_template("chat.html", questions=question_list, error_message="", prefill="")
 
     if request.method == "POST":
         users.check_csrf()
         content = request.form["content"].strip()
         if content == "":
-            return render_template("chat.html", questions=question_list, error_message="You must type the question before sending it.")
+            return render_template("chat.html", questions=question_list, error_message="You must type the question before sending it.", prefill="")
         elif len(content) > 1000:
-            return render_template("chat.html", questions=question_list, error_message="The question can have 1000 characters at maximum.")
+            return render_template("chat.html", questions=question_list, error_message="The question can have 1000 characters at maximum.", prefill=content)
 
         if chat.send_question(content):
             return redirect("/chat")
         else:
-            return render_template("chat.html", questions=question_list, error_message="Oops, something went wrong. Please, try again!")
+            return render_template("chat.html", questions=question_list, error_message="Oops, something went wrong. Please, try again!", prefill=content)
 
 @app.route("/delete/<int:question_id>", methods=["GET"])
 def delete_question(question_id):
@@ -116,21 +119,21 @@ def see_answers(question_id):
     answer_list = chat.get_answers_by_question(question_id)
 
     if request.method == "GET":
-        return render_template("question.html", question=question_info, answers=answer_list, error_message="")
+        return render_template("question.html", question=question_info, answers=answer_list, error_message="", prefill="")
 
     if request.method == "POST":
         users.check_csrf()
         content = request.form["content"].strip()
         if content == "":
-            return render_template("question.html", question=question_info, answers=answer_list, error_message="Type your answer")
+            return render_template("question.html", question=question_info, answers=answer_list, error_message="Type your answer", prefill="")
         elif len(content) > 1000:
-            return render_template("question.html", question=question_info, answers=answer_list, error_message="The answer can have 1000 characters at maximum.")
+            return render_template("question.html", question=question_info, answers=answer_list, error_message="The answer can have 1000 characters at maximum.", prefill=content)
 
         if chat.send_answer(question_id, content):
             url = f"/question/{question_id}"
             return redirect(url)
         else:
-            return render_template("question.html", question=question_info, answers=answer_list, error_message="Oops, something went wrong. Please, try again.")
+            return render_template("question.html", question=question_info, answers=answer_list, error_message="Oops, something went wrong. Please, try again.", prefill=content)
 
 @app.route("/delete/<int:question_id>/<int:answer_id>", methods=["GET"])
 def delete_answer(question_id, answer_id):
@@ -154,22 +157,25 @@ def create_quiz():
     users.check_status()
 
     if request.method == "GET":
-        return render_template("create.html")
+        return render_template("create.html", error="", prename="", predescription="", pre_exercises="task;solution")
 
     if request.method == "POST":
         users.check_csrf()
 
         name = request.form["name"].strip()
-        if len(name) < 1 or len(name) > 30:
-            return render_template("error.html", message="The name must have 1-30 characters.")
-
         description = request.form["description"].strip()
-        if len(description) > 500:
-            return render_template("error.html", message="The description cannot have more than 500 characters.")
-
         exercises = request.form["exercises"].strip()
+        error = ""
+
+        if len(name) < 1 or len(name) > 30:
+            error += "The name must have 1 to 30 characters."
+        if len(description) > 500:
+            error += " The description can have 500 characters at maximum."
         if len(exercises) > 10000:
-            return render_template("error.html", message="The exercise section can have 10000 characters at maximum.")
+            error += " The exercise section can have 10000 characters at maximum."
+
+        if error != "":
+            return render_template("create.html", error=error, prename=name, predescription=description, pre_exercises=exercises)
 
         quiz_id = quizzes.add_quiz(name, description, exercises)
         return redirect("/play/"+str(quiz_id))

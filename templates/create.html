@@ -4,19 +4,22 @@
 <p class="logout"><a href="/logout" class="class2">Log out</a></p>
 <hr>
 <h2>Create a new quiz</h2>
+<p><b>{{ error }}</b></p>
 <form action="/create" method="post">
 Name:
 <br>
-<input type="text" name="name" minlength="1" maxlength="30">
+<input type="text" name="name" minlength="1" maxlength="30" value={{ prename }}>
 <br>
 Description:
 <br>
-<textarea name="description" rows="3" cols="40" maxlength="500"></textarea>
+<textarea name="description" rows="3" cols="40" maxlength="500">
+{{ predescription }}
+</textarea>
 <br>
 Exercises:
 <br>
 <textarea name="exercises" rows="5" cols="40" maxlength="10000">
-task;solution
+{{ pre_exercises }}
 </textarea>
 <br>
 <input id=button3 type="submit" value="Save">
