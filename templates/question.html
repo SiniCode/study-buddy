@@ -18,9 +18,7 @@
 <form action="/question/{{ question[0] }}" method="post">
   Write your answer:
   <br>
-  <textarea name="content" rows="4" cols="40" maxlength="1000">
-  {{ prefill }}
-  </textarea><br>
+  <textarea name="content" rows="4" cols="40" maxlength="1000">{{ prefill }}</textarea><br>
   <input id=button3 type="submit" value="Send">
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>

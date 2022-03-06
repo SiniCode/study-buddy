@@ -12,15 +12,11 @@ Name:
 <br>
 Description:
 <br>
-<textarea name="description" rows="3" cols="40" maxlength="500">
-{{ predescription }}
-</textarea>
+<textarea name="description" rows="3" cols="40" maxlength="500">{{ predescription }}</textarea>
 <br>
 Exercises:
 <br>
-<textarea name="exercises" rows="5" cols="40" maxlength="10000">
-{{ pre_exercises }}
-</textarea>
+<textarea name="exercises" rows="5" cols="40" maxlength="10000">{{ pre_exercises }}</textarea>
 <br>
 <input id=button3 type="submit" value="Save">
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
