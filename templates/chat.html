@@ -34,7 +34,7 @@
 <a href="/question/{{ question[0] }}" class="class1">Reply / Show answers</a>
 {% if session.user_id == question[1] or session.user_role == "admin" %}
 <a href="/delete/{{ question[0] }}" class="class2">Delete question</a>  
-<hr>
 {% endif %}
+<hr>
 {% endfor %}
 {% endblock %}
