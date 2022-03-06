@@ -85,16 +85,22 @@ a.class1:link, a.class1:visited {
     color: #454559;
     margin-bottom: 20px;
     margin-right: 80px;
+    text-decoration: none;
 }
 
 a.class2:link, a.class2:visited {
     font-weight: bold;
     color: #454559;
     margin-bottom: 20px;
+    text-decoration: none;
 }
 
-a:hover {
-    color: #212121;
+a.class1:hover {
+    text-decoration: underline;
+}
+
+a.class2:hover {
+    text-decoration: underline;
 }
 
 .logout {

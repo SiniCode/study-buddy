@@ -22,7 +22,7 @@
 <p>{{ error_message }}</p>
 {% endif %}
 <hr>
-
+<h3>Questions</h3>
 {% for question in questions %}
 <p>
   <b>{{ question[2] }}</b>
@@ -34,6 +34,7 @@
 <a href="/question/{{ question[0] }}" class="class1">Reply / Show answers</a>
 {% if session.user_id == question[1] or session.user_role == "admin" %}
 <a href="/delete/{{ question[0] }}" class="class2">Delete question</a>  
+<hr>
 {% endif %}
 {% endfor %}
 {% endblock %}

@@ -50,6 +50,7 @@
 {% if session.user_id == answer[1] or session.user_role == "admin" %}
 <a href="/delete/{{ question[0] }}/{{ answer[0] }}" class="class2">Delete answer</a>
 {% endif %}
+<hr>
 {% endfor %}
 {% endif %}
 {% endblock %}
