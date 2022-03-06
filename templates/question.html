@@ -28,6 +28,7 @@
 {% endif %}
 <hr>
 
+{% if answers != [] %}
 <h3>Previous answers</h3>
 {% for answer in answers %}
 <p>
@@ -42,6 +43,6 @@
 {% endif %}
 <hr>
 {% endfor %}
-
+{% endif %}
 <a href="/chat" class="class2">Back</a>
 {% endblock %}

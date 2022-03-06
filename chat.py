@@ -5,7 +5,7 @@ def get_questions():
     sql = """SELECT Q.id, U.id, U.username, Q.sent_at, Q.content
              FROM users U, questions Q
              WHERE Q.user_id=U.id AND Q.visible=1
-             ORDER BY Q.id"""
+             ORDER BY Q.id DESC"""
     questions = db.session.execute(sql)
     return questions.fetchall()
 
@@ -20,7 +20,7 @@ def get_answers_by_question(question_id):
     sql = """SELECT A.id, U.id, U.username, A.sent_at, A.content
              FROM users U, Answers A
              WHERE A.user_id=U.id AND A.question_id=:question_id AND A.visible=1
-             ORDER BY A.id"""
+             ORDER BY A.id DESC"""
     answers = db.session.execute(sql, {"question_id":question_id})
     return answers.fetchall()
 
