@@ -11,5 +11,16 @@
   {% endfor %}
 </ul>
 <hr>
+{% if session.user_role == "buddy" %}
+<form action="statistics" method="POST">
+  <h3>Delete account</h3>
+  <p>Warning: If you click the button below, your user account and all your messages will be deleted permanently.<br>
+    <b>{{ error }}</b>
+  </p>
+  <input id=button4 type="submit" value="Delete account">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+<hr>
+{% endif %}
 <a href="/home" class="class2">Back</a>
 {% endblock %}

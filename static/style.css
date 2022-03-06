@@ -72,6 +72,13 @@ form #button3 {
     padding: 5px;
 }
 
+form #button4 {
+    width: 10em;
+    padding: 5px;
+    background: DarkRed;
+    color: MintCream;
+}
+
 a.class1:link, a.class1:visited {
     font-weight: bold;
     color: #454559;

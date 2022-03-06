@@ -60,6 +60,9 @@ def get_users():
     return usernames
 
 def delete_user(username):
+    if username == "Admin":
+        return False
+
     users = get_users()
     if not username in users:
         return False
@@ -70,4 +73,22 @@ def delete_user(username):
         db.session.commit()
     except:
         return False
+    return True
+
+def delete_own_account():
+    status = session.get("user_role", "")
+    if status == "admin":
+        return False
+
+    user_id = session.get("user_id", -1)
+    if user_id == -1:
+        return False
+
+    try:
+        sql = "DELETE from users WHERE id=:id"
+        db.session.execute(sql, {"id":user_id})
+        db.session.commit()
+    except:
+        return False
+    logout()
     return True

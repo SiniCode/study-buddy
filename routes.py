@@ -143,14 +143,23 @@ def delete_answer(question_id, answer_id):
     else:
         return render_template("error.html", message="You cannot delete this answer.")
 
-@app.route("/statistics")
+@app.route("/statistics", methods=["GET", "POST"])
 def user_statistics():
-    user_id = users.user_id()
-    if user_id == -1:
-        return render_template("error.html", message="You must log in to see the stats.")
+    if request.method == "GET":
+        user_id = users.user_id()
+        if user_id == -1:
+            return render_template("error.html", message="You must log in to see the stats.")
 
-    stats = statistics.get_user_stats(user_id)
-    return render_template("statistics.html", stats=stats)
+        stats = statistics.get_user_stats(user_id)
+        return render_template("statistics.html", stats=stats, error="")
+
+    if request.method == "POST":
+        users.check_csrf()
+        if users.delete_own_account():
+            return redirect("/register")
+        else:
+            stats = statistics.get_user_stats(user_id)
+            return render_template("statistics.html", stats=stats, error="Deletion didn't succeed. Please, try again.")
 
 @app.route("/create", methods=["GET", "POST"])
 def create_quiz():
