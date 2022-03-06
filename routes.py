@@ -4,6 +4,7 @@ import users
 import quizzes
 import chat
 import statistics
+import random
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -55,31 +56,35 @@ def register():
 def home():
     return render_template("home.html", quizzes=quizzes.get_quizzes())
 
-@app.route("/play/<int:quiz_id>", methods=["GET"])
+@app.route("/play/<int:quiz_id>", methods=["GET", "POST"])
 def play(quiz_id):
-    user_id = users.user_id()
-    if user_id == -1:
-        return render_template("error.html", message="You must log in to play.")
-
     quiz = quizzes.get_quiz_info(quiz_id)
-    task = quizzes.get_random_task(quiz_id)
-    return render_template("play.html", quiz_id=quiz_id, quiz_name=quiz[0], quiz_description=quiz[1], task=task[1], exercise_id=task[0])
 
-@app.route("/check", methods=["POST"])
-def check():
-    users.check_csrf()
+    if request.method == "GET":
+        user_id = users.user_id()
+        if user_id == -1:
+            return render_template("error.html", message="You must log in to play.")
 
-    quiz_id = request.form["quiz_id"]
-    exercise_id = request.form["exercise_id"]
-    answer = request.form["answer"].strip().lstrip("0")
-    correct = quizzes.get_solution(exercise_id)
+        task = quizzes.get_random_task(quiz_id)
+        return render_template("play.html", quiz_id=quiz_id, quiz_name=quiz[0], quiz_description=quiz[1], task=task[1], exercise_id=task[0], feedback="")
 
-    if answer.lower() == correct.lower():
-        quizzes.save_attempt(users.user_id(), quiz_id, 1)
-    else:
-        quizzes.save_attempt(users.user_id(), quiz_id, 0)
+    feedback_pool = ["Well done, buddy!", "Great!", "Good job, buddy!", "Spot on!", "Amazing!", "Correct!", "Nice!"]
+    if request.method == "POST":
+        users.check_csrf()
 
-    return render_template("check.html", quiz_id=quiz_id, answer=answer, correct=correct)
+        exercise_id = request.form["exercise_id"]
+        answer = request.form["answer"].strip().lstrip("0")
+        correct = quizzes.get_solution(exercise_id)
+
+        if answer.lower() == correct.lower():
+            quizzes.save_attempt(users.user_id(), quiz_id, 1)
+            feedback = random.choice(feedback_pool)
+        else:
+            quizzes.save_attempt(users.user_id(), quiz_id, 0)
+            feedback = f"Not quite, buddy... Your solution was {answer}, and the correct solution was {correct}. Keep going!"
+
+        task = quizzes.get_random_task(quiz_id)
+        return render_template("play.html", quiz_id=quiz_id, quiz_name=quiz[0], quiz_description=quiz[1], task=task[1], exercise_id=task[0], feedback=feedback)
 
 @app.route("/logout")
 def logout():

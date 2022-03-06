@@ -7,15 +7,16 @@
 <p>{{ quiz_description }}</p>
 <hr>
 {% if session.user_id %}
-<form action="/check" method="POST">
+<form action="/play/{{ quiz_id }}" method="POST">
   <p><b>{{ task }}</b></p>
   <input type="text" name="answer">
-  <input type="hidden" name="quiz_id" value="{{ quiz_id }}">
   <input type="hidden" name="exercise_id" value="{{ exercise_id }}">
   <input id=button type="submit" value="Check">
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
-<p><a href="/home" class="class2">End Quiz</a></p>
+<p><b>{{ feedback }}</b><br></p>
+<hr>
+<a href="/home" class="class2">End Quiz</a>
 {% else %}
 <p><a href="/" class="class2">Log in</a> to play</p>
 {% endif %}
