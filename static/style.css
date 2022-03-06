@@ -37,6 +37,7 @@ form input[type=number] {
     width: 5em;
     padding: 5px;
     outline: none;
+    margin-bottom:15px;
 }
 
 form input:focus {

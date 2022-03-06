@@ -221,7 +221,6 @@ def delete_user():
 @app.route("/delete/quiz", methods=["POST"])
 def delete_quiz():
     users.check_csrf()
-    users.check_status()
 
     user_count = statistics.get_user_count()
 
@@ -238,7 +237,6 @@ def delete_quiz():
 @app.route("/restore", methods=["POST"])
 def restore_quiz():
     users.check_csrf()
-    users.check_status()
 
     user_count = statistics.get_user_count()
 
@@ -251,3 +249,21 @@ def restore_quiz():
         quiz_list = statistics.get_quiz_stats(users.user_id())
         deleted = quizzes.get_deleted_quizzes()
         return render_template("admin.html", user_count=user_count, quizzes=quiz_list, deleted=deleted, message="Restoring the quiz didn't succeed. Check the id number and try again.")
+
+@app.route("/rename", methods=["POST"])
+def rename():
+    users.check_csrf()
+
+    user_count = statistics.get_user_count()
+
+    quiz_id = request.form["quiz_id"]
+    new_name = request.form["new_name"]
+    if quizzes.rename_quiz(quiz_id, new_name):
+        quiz_list = statistics.get_quiz_stats(users.user_id())
+        deleted = quizzes.get_deleted_quizzes()
+        return render_template("admin.html", user_count=user_count, quizzes=quiz_list, deleted=deleted, message="The quiz was renamed!")
+    else:
+        quiz_list = statistics.get_quiz_stats(users.user_id())
+        deleted = quizzes.get_deleted_quizzes()
+        return render_template("admin.html", user_count=user_count, quizzes=quiz_list, deleted=deleted, message="Restoring the quiz didn't succeed. Check the id and try again.")
+

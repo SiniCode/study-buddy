@@ -97,3 +97,20 @@ def restore_quiz(quiz_id):
     except:
         return False
     return True
+
+def rename_quiz(quiz_id, new_name):
+    users.check_status()
+
+    sql = "SELECT COUNT(*) FROM quizzes"
+    quiz_count = db.session.execute(sql).fetchone()[0]
+    if int(quiz_id) < 1 or int(quiz_id) > int(quiz_count):
+        return False
+
+    try:
+        sql = """UPDATE quizzes SET name=:new_name
+                 WHERE id=:quiz_id"""
+        db.session.execute(sql, {"new_name":new_name, "quiz_id":quiz_id})
+        db.session.commit()
+    except:
+        return False
+    return True
