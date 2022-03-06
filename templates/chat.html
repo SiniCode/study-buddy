@@ -1,7 +1,14 @@
 {% extends "layout.html" %}
 {% block title %}Questions{% endblock %}
 {% block content %}
-<p class="logout"><a href="/logout" class="class2">Log out</a></p>
+<p>
+  <nav>
+    <li><a href="/home">Homepage</a></li>
+    <li>|</li>
+    <li><a href="/statistics">My Profile</a></li>
+    <li style="float:right; border: 2px solid #454559;"><a href="/logout">Log out</a></li>
+  </nav>
+</p>
 <hr>
 <h2>Question Forum</h2>
 {% if session.user_id %}
@@ -28,8 +35,5 @@
 {% if session.user_id == question[1] or session.user_role == "admin" %}
 <a href="/delete/{{ question[0] }}" class="class2">Delete question</a>  
 {% endif %}
-<hr>
 {% endfor %}
-
-<a href="/home" class="class2">Back</a>
 {% endblock %}

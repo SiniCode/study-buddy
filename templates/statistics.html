@@ -1,7 +1,14 @@
 {% extends "layout.html" %}
 {% block title %}Statistics{% endblock %}
 {% block content %}
-<p class="logout"><a href="/logout" class="class2">Log out</a></p>
+<p>
+  <nav>
+    <li><a href="/home">Homepage</a></li>
+    <li>|</li>
+    <li><a href="/chat">Question Forum</a></li>
+    <li style="float:right; border: 2px solid #454559;"><a href="/logout">Log out</a></li>
+  </nav>
+</p>
 <hr>
 <h2>Your Study Buddy Stats</h2>
 <ul>
@@ -20,7 +27,5 @@
   <input id=button4 type="submit" value="Delete account">
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
-<hr>
 {% endif %}
-<a href="/home" class="class2">Back</a>
 {% endblock %}

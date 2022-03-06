@@ -109,3 +109,31 @@ ul {
 ul li {
     margin: 12px;
 }
+   
+
+nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav li {
+    float: left;
+    padding: 10px;
+}
+
+nav li a {
+    display: block;
+    font-weight: bold;
+    font-size: 18px;
+    color: #454559;
+    text-align: center;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    font-weight: bold;
+    color: #454559;
+    text-decoration: underline;
+}
