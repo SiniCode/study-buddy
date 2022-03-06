@@ -4,7 +4,7 @@
 
 ## Features
 
-A user may
+A user (buddy) may
 * create an account
 * log in with their username and password
 * see all available activities, take the quizzes, and get feedback
@@ -13,9 +13,10 @@ A user may
 * answer other users' questions
 * delete their own questions and answers
 * log out
+* delete their own account
 
 An administrator may additionally
-* add, delete, and restore quizzes
+* add, delete, restore, and rename quizzes
 * delete any questions and answers
 * see statistics on the use of the app, e.g. how many users, how many times a quiz has been taken
 * delete a user account
