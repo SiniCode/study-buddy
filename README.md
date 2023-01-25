@@ -25,6 +25,5 @@ An administrator may additionally
 
 The app can be tested in [Heroku](https://tsoha-study-buddy.herokuapp.com/).
 
-To test the administration options:
-* Username: Admin
-* Password: TheBossBuddy
+Update: Unfortunately, the app is no longer running in Heroku.
+You can find some screenshots [here](https://github.com/SiniCode/study-buddy/tree/main/screenshots) if you wish to see what the app looked like.
